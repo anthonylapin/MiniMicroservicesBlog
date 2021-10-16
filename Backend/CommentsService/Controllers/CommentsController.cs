@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CommentsService.Data;
 using CommentsService.DataTransferObjects;
 using CommentsService.Models;
+using HttpClients;
+using HttpClients.Dto;
+using HttpClients.Enum;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CommentsService.Controllers
@@ -12,10 +16,12 @@ namespace CommentsService.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly IDataContext _dataContext;
+        private readonly IEventBusClient _eventBusClient;
 
-        public CommentsController(IDataContext dataContext)
+        public CommentsController(IDataContext dataContext, IEventBusClient eventBusClient)
         {
             _dataContext = dataContext;
+            _eventBusClient = eventBusClient;
         }
         
         [HttpGet]
@@ -31,14 +37,14 @@ namespace CommentsService.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCommentToPost(int postId, [FromBody] AddCommentDto commentDto)
+        public async Task<IActionResult> AddCommentToPost(int postId, [FromBody] AddCommentDto commentDto)
         {
             var commentId = Guid.NewGuid();
 
             var comment = new Comment
             {
                 Id = commentId,
-                Content = commentDto.Content
+                Content = commentDto.Content,
             };
 
             IList<Comment> comments;
@@ -53,6 +59,15 @@ namespace CommentsService.Controllers
                 comments = new List<Comment> {comment};
                 _dataContext.Comments[postId] = comments;
             }
+
+            var commentCreatedPayload = new CommentAddedDto
+            {
+                PostId = postId,
+                Id = comment.Id,
+                Content = comment.Content
+            };
+
+            await _eventBusClient.SendEvent(EventTypes.CommentsCreate, commentCreatedPayload);
             
             return Ok(comments);
         }

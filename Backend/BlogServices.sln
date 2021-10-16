@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostsService", "PostsServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentsService", "CommentsService\CommentsService.csproj", "{C7955EA1-9E22-4475-9907-BA308BB3CBED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "EventBus\EventBus.csproj", "{4E129A29-91A1-4633-B8D7-983FF7F0B9AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClients", "HttpClients\HttpClients.csproj", "{D5B42500-3FDE-4DAA-AF64-3AB36B1F36CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryService", "QueryService\QueryService.csproj", "{679EB7D2-8279-44C0-8A9E-AC373510C3C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,17 @@ Global
 		{C7955EA1-9E22-4475-9907-BA308BB3CBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7955EA1-9E22-4475-9907-BA308BB3CBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7955EA1-9E22-4475-9907-BA308BB3CBED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E129A29-91A1-4633-B8D7-983FF7F0B9AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E129A29-91A1-4633-B8D7-983FF7F0B9AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E129A29-91A1-4633-B8D7-983FF7F0B9AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E129A29-91A1-4633-B8D7-983FF7F0B9AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5B42500-3FDE-4DAA-AF64-3AB36B1F36CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5B42500-3FDE-4DAA-AF64-3AB36B1F36CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5B42500-3FDE-4DAA-AF64-3AB36B1F36CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5B42500-3FDE-4DAA-AF64-3AB36B1F36CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{679EB7D2-8279-44C0-8A9E-AC373510C3C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{679EB7D2-8279-44C0-8A9E-AC373510C3C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{679EB7D2-8279-44C0-8A9E-AC373510C3C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{679EB7D2-8279-44C0-8A9E-AC373510C3C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

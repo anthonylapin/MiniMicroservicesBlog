@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CommentsService.Data;
+using HttpClients;
+using HttpClients.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,9 +29,22 @@ namespace CommentsService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var frontendBaseUrl = Configuration.GetSection("FrontendOptions").GetValue<string>("BaseUrl");
+            
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(p => p
+                    .WithOrigins(frontendBaseUrl)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+            
             services.AddSingleton<IDataContext, DataContext>();
+
+            services.AddEventBusClient(Configuration.GetSection("EventBusClientOptions").Bind);
             
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "CommentsService", Version = "v1"});
@@ -39,6 +54,8 @@ namespace CommentsService
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

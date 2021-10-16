@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HttpClients.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,9 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using PostsService.Data;
+using QueryService.Data;
 
-namespace PostsService
+namespace QueryService
 {
     public class Startup
     {
@@ -37,16 +36,13 @@ namespace PostsService
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-            
+
             services.AddSingleton<IDataContext, DataContext>();
 
-            services.AddEventBusClient(Configuration.GetSection("EventBusClientOptions").Bind);
-            
             services.AddControllers();
-            
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "PostsService", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "QueryService", Version = "v1"});
             });
         }
 
@@ -57,13 +53,13 @@ namespace PostsService
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PostsService v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "QueryService v1"));
             }
+
+            app.UseCors();
 
             app.UseRouting();
 
-            app.UseCors();
-            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

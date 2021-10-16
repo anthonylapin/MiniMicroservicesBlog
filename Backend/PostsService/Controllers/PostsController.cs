@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
+using HttpClients;
+using HttpClients.Enum;
 using Microsoft.AspNetCore.Mvc;
 using PostsService.Data;
 using PostsService.DataTransferObjects;
@@ -12,10 +15,12 @@ namespace PostsService.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IDataContext _dataContext;
+        private readonly IEventBusClient _eventBusClient;
 
-        public PostsController(IDataContext dataContext)
+        public PostsController(IDataContext dataContext, IEventBusClient eventBusClient)
         {
             _dataContext = dataContext;
+            _eventBusClient = eventBusClient;
         }
         
         [HttpGet]
@@ -25,7 +30,7 @@ namespace PostsService.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePost([FromBody] CreatePostDto postDto)
+        public async Task<IActionResult> CreatePost([FromBody] CreatePostDto postDto)
         {
             var lastPost = _dataContext.Posts.OrderByDescending(p => p.Id).FirstOrDefault();
 
@@ -36,6 +41,8 @@ namespace PostsService.Controllers
             };
 
             _dataContext.Posts.Add(post);
+
+            await _eventBusClient.SendEvent(EventTypes.PostsCreate, post);
 
             return Ok(post);
         }
