@@ -1,48 +1,23 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using Entities.Enum;
 using Entities.Models;
 using HttpClients.Helpers;
-using Microsoft.AspNetCore.Mvc;
 using QueryService.Data;
 
-namespace QueryService.Controllers
+namespace QueryService.Util
 {
-    [ApiController]
-    [Route("api/events")]
-    public class EventsController : ControllerBase
+    public class EventHandler : IEventHandler
     {
         private readonly IDataContext _dataContext;
 
-        public EventsController(IDataContext dataContext)
+        public EventHandler(IDataContext dataContext)
         {
             _dataContext = dataContext;
         }
-
-        [HttpPost]
-        public IActionResult ReceiveEvent(Event eventModel)
-        {
-            Console.WriteLine($"--> Event received in query service: {JsonSerializer.Serialize(eventModel)}");
-
-            try
-            {
-                HandleEvent(eventModel);
-                
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                var errorMessage = $"Error occurred while processing events: {e.Message}";
-
-                Console.WriteLine($"--> {errorMessage}");
-
-                return BadRequest(errorMessage);
-            }
-        }
-
-        private void HandleEvent(Event eventModel)
+        
+        public void HandleEvent(Event eventModel)
         {
             switch (eventModel.Type)
             {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Entities.Models;
 
-namespace CommentsService.Data
+namespace EventBus.Data
 {
     public interface IDataContext
     {
-        Dictionary<int, IList<Comment>> Comments { get; }
+        IList<Event> Events { get; set; }
     }
 }

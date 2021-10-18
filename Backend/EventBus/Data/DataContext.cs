@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using Entities.Models;
 
-namespace PostsService.Data
+namespace EventBus.Data
 {
     public class DataContext : IDataContext
     {
+        public IList<Event> Events { get; set; }
+
         public DataContext()
         {
-            Posts = new List<Post>();
+            Events = new List<Event>();
         }
-
-        public IList<Post> Posts { get; }
     }
 }

@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace HttpClients.Helpers
 {
@@ -22,7 +23,7 @@ namespace HttpClients.Helpers
                 RequestUri = new Uri(url, uriKind),
                 Content = new StringContent(jsonContent, Encoding.UTF8, MediaTypeNames.Application.Json)
             };
-            
+
             message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json));
 
             return message;

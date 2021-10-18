@@ -5,9 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using PostsService.Data;
 
-namespace PostsService
+namespace ModerationService
 {
     public class Startup
     {
@@ -21,25 +20,13 @@ namespace PostsService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var frontendBaseUrl = Configuration.GetSection("FrontendOptions").GetValue<string>("BaseUrl");
-
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(p => p
-                    .WithOrigins(frontendBaseUrl)
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
-            });
-
-            services.AddSingleton<IDataContext, DataContext>();
-
             services.AddEventBusClient(Configuration.GetSection("EventBusClientOptions").Bind);
-
+            
             services.AddControllers();
-
+            
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "PostsService", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "ModerationService", Version = "v1"});
             });
         }
 
@@ -50,12 +37,10 @@ namespace PostsService
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PostsService v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ModerationService v1"));
             }
 
             app.UseRouting();
-
-            app.UseCors();
 
             app.UseAuthorization();
 

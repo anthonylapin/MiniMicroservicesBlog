@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using PostsService.Models;
+using Entities.Models;
 
 namespace PostsService.Data
 {

@@ -1,12 +1,15 @@
 ﻿using System.Text.Json.Serialization;
-using HttpClients.Enum;
+using Entities.Enum;
 
-namespace HttpClients.Models
+namespace Entities.Models
 {
-    public class EventModel
+    public class Event
     {
+        [JsonPropertyName("type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public EventTypes Type { get; set; }
+
+        [JsonPropertyName("payload")]
         public string Payload { get; set; }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Entities.Enum;
+using Entities.Models;
 using HttpClients;
-using HttpClients.Enum;
 using Microsoft.AspNetCore.Mvc;
 using PostsService.Data;
 using PostsService.DataTransferObjects;
-using PostsService.Models;
 
 namespace PostsService.Controllers
 {
@@ -22,7 +22,7 @@ namespace PostsService.Controllers
             _dataContext = dataContext;
             _eventBusClient = eventBusClient;
         }
-        
+
         [HttpGet]
         public IActionResult GetAllPosts()
         {
@@ -44,7 +44,7 @@ namespace PostsService.Controllers
 
             await _eventBusClient.SendEvent(EventTypes.PostsCreate, post);
 
-            return Ok(post);
+            return Created(new Uri("api/posts", UriKind.Relative), post);
         }
     }
 }

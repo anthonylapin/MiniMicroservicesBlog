@@ -15,11 +15,12 @@ namespace QueryService.Controllers
         {
             _dataContext = dataContext;
         }
-        
+
         [HttpGet]
         public IActionResult GetAllPosts()
         {
-            Console.WriteLine($"--> Processing GetAllPosts request. Return Posts: {JsonSerializer.Serialize(_dataContext.Posts)}");
+            Console.WriteLine(
+                $"--> Processing GetAllPosts request. Return Posts: {JsonSerializer.Serialize(_dataContext.Posts)}");
             return Ok(_dataContext.Posts);
         }
     }

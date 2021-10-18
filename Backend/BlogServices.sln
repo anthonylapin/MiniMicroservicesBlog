@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClients", "HttpClients\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryService", "QueryService\QueryService.csproj", "{679EB7D2-8279-44C0-8A9E-AC373510C3C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModerationService", "ModerationService\ModerationService.csproj", "{CED47FAD-9C6C-4CFC-82A9-9D144203BB64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{20FB37AD-D32B-4C4B-BFBF-1E76397664C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{679EB7D2-8279-44C0-8A9E-AC373510C3C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{679EB7D2-8279-44C0-8A9E-AC373510C3C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{679EB7D2-8279-44C0-8A9E-AC373510C3C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CED47FAD-9C6C-4CFC-82A9-9D144203BB64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CED47FAD-9C6C-4CFC-82A9-9D144203BB64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CED47FAD-9C6C-4CFC-82A9-9D144203BB64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CED47FAD-9C6C-4CFC-82A9-9D144203BB64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20FB37AD-D32B-4C4B-BFBF-1E76397664C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20FB37AD-D32B-4C4B-BFBF-1E76397664C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20FB37AD-D32B-4C4B-BFBF-1E76397664C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20FB37AD-D32B-4C4B-BFBF-1E76397664C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

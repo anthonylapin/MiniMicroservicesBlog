@@ -21,8 +21,8 @@ export function PostList() {
 
     return (
       <div className="mt-2 row">
-          {posts.length === 0 ? <h3>No posts created yet</h3> : posts.map(p => (
-              <Post key={p.id} post={p} />
+          {posts.length === 0 ? <h3>No posts created yet</h3> : posts.map((p, index) => (
+              <Post key={index} post={p} />
           ))}
       </div>
     );

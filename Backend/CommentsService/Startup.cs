@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CommentsService.Data;
-using HttpClients;
 using HttpClients.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace CommentsService
@@ -30,7 +22,7 @@ namespace CommentsService
         public void ConfigureServices(IServiceCollection services)
         {
             var frontendBaseUrl = Configuration.GetSection("FrontendOptions").GetValue<string>("BaseUrl");
-            
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(p => p
@@ -38,13 +30,13 @@ namespace CommentsService
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-            
+
             services.AddSingleton<IDataContext, DataContext>();
 
             services.AddEventBusClient(Configuration.GetSection("EventBusClientOptions").Bind);
-            
+
             services.AddControllers();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "CommentsService", Version = "v1"});
@@ -55,7 +47,7 @@ namespace CommentsService
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

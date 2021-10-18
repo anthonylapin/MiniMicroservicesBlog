@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CommentsService.Data;
 using CommentsService.DataTransferObjects;
-using CommentsService.Models;
+using Entities.Enum;
+using Entities.Models;
 using HttpClients;
-using HttpClients.Dto;
-using HttpClients.Enum;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CommentsService.Controllers
@@ -23,7 +22,7 @@ namespace CommentsService.Controllers
             _dataContext = dataContext;
             _eventBusClient = eventBusClient;
         }
-        
+
         [HttpGet]
         public IActionResult GetPostComments(int postId)
         {
@@ -32,7 +31,7 @@ namespace CommentsService.Controllers
             var comments = commentsToPostDictionary.ContainsKey(postId)
                 ? commentsToPostDictionary[postId]
                 : new List<Comment>();
-            
+
             return Ok(comments);
         }
 
@@ -45,6 +44,8 @@ namespace CommentsService.Controllers
             {
                 Id = commentId,
                 Content = commentDto.Content,
+                PostId = postId,
+                CommentStatus = CommentStatuses.Pending
             };
 
             IList<Comment> comments;
@@ -60,16 +61,9 @@ namespace CommentsService.Controllers
                 _dataContext.Comments[postId] = comments;
             }
 
-            var commentCreatedPayload = new CommentAddedDto
-            {
-                PostId = postId,
-                Id = comment.Id,
-                Content = comment.Content
-            };
+            await _eventBusClient.SendEvent(EventTypes.CommentsCreate, comment);
 
-            await _eventBusClient.SendEvent(EventTypes.CommentsCreate, commentCreatedPayload);
-            
-            return Ok(comments);
+            return Created(new Uri($"api/posts/{postId}/comments", UriKind.Relative), comment);
         }
     }
 }

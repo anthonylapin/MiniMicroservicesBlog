@@ -10,8 +10,8 @@ namespace HttpClients.Extensions
             Action<EventBusClientOptions> configure)
         {
             services.Configure(configure);
-            services.AddHttpClient<IEventBusClient, EventBusClient>();            
-            
+            services.AddHttpClient<IEventBusClient, EventBusClient>();
+
             return services;
         }
     }

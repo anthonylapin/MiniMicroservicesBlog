@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using QueryService.Models;
+using Entities.Models;
 
 namespace QueryService.Data
 {

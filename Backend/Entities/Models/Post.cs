@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QueryService.Models
+namespace Entities.Models
 {
     public class Post
     {
